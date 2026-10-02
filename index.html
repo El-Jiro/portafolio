@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tu Nombre · Portafolio de programador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+  <nav id="menu">
+    <span class="logo">Tu Nombre</span>
+    <a href="#java">Java</a>
+    <a href="#python">Python</a>
+    <a href="#javascript">JavaScript</a>
+    <a href="#contacto">Contacto</a>
+    <button id="tema" type="button" aria-label="Cambiar entre modo claro y oscuro"></button>
+  </nav>
+
+  <header>
+    <div class="portada">
+      <div>
+        <h1>Hola, soy Tu Nombre. Desarrollo software.</h1>
+        <p>Programador con experiencia en Java, Python y JavaScript. Aquí están los proyectos que mejor muestran cómo
+          trabajo con cada lenguaje.</p>
+        <div class="barra" aria-hidden="true">
+          <span style="background:var(--java)"></span>
+          <span style="background:var(--python)"></span>
+          <span style="background:var(--js)"></span>
+        </div>
+      </div>
+      <!-- TU FOTO: guarda tu imagen como "foto.jpg" dentro de la carpeta img/, o cambia el src -->
+      <div class="foto">
+        <img src="img/foto.jpg" alt="Foto de Tu Nombre" onerror="this.remove()">
+        <span>Coloca tu foto aquí<br>(img/foto.jpg)</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="lenguaje" id="java">
+      <div class="contenido">
+        <div class="intro">
+          <h2>Java</h2>
+          <p>Describe aquí qué haces con Java: aplicaciones de escritorio, APIs con Spring, Android, etc.</p>
+          <ul class="etiquetas" data-lang="java"></ul>
+        </div>
+        <div class="proyectos" data-lang="java"></div>
+      </div>
+    </section>
+
+    <section class="lenguaje" id="python">
+      <div class="contenido">
+        <div class="intro">
+          <h2>Python</h2>
+          <p>Describe aquí tu experiencia con Python: automatización, análisis de datos, backend, etc.</p>
+          <ul class="etiquetas" data-lang="python"></ul>
+        </div>
+        <div class="proyectos" data-lang="python"></div>
+      </div>
+    </section>
+
+    <section class="lenguaje" id="javascript">
+      <div class="contenido">
+        <div class="intro">
+          <h2>JavaScript</h2>
+          <p>Describe aquí lo que construyes con JavaScript: interfaces web, Node.js, aplicaciones interactivas.</p>
+          <ul class="etiquetas" data-lang="javascript"></ul>
+        </div>
+        <div class="proyectos" data-lang="javascript"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <h2>¿Trabajamos juntos?</h2>
+    <p>Escríbeme y te respondo en un par de días.</p>
+    <a class="boton" href="mailto:tucorreo@ejemplo.com">Enviar correo</a>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
