@@ -279,6 +279,7 @@
   .proyecto p {
     margin: 6px 0 12px;
     color: var(--muted);
+    text-align: justify;
   }
 
   .proyecto .tec {

@@ -14,10 +14,15 @@ const datos = {
     ]
   },
   python: {
-    tecnologias: ["Pandas", "Flask", "Django", "Selenium"],
+    tecnologias: ["Pandas", "Flask", "Folium", "CV2", "Bokeh", "Justpy", "Highcharts", "Flask", "Tkinter", "SQLite", "Kivy"],
     proyectos: [
-      { titulo: "Reporte automático de ventas", descripcion: "Script que lee archivos de Excel y genera un resumen semanal.", tec: "Python, Pandas", demo: "", codigo: "#" },
-      { titulo: "Bot de seguimiento de precios", descripcion: "Revisa precios en tiendas en línea y avisa cuando bajan.", tec: "Python, Selenium", demo: "#", codigo: "#" }
+      { titulo: "Mapa interactivo", descripcion: "Un mapamundi interactivo en la web creado con la librería folium, el cual muestra la ubicación de los volcanes más importantes en los Estados Unidos de América, además de la cantidad de población de cada país mediante un código de color.", tec: "Python, Folium, HTML, CSS, JavaScript", demo: "", codigo: "https://github.com/El-Jiro/mapa-interactivo-python.git" },
+      { titulo: "Detector de movimiento", descripcion: "Una app de escritorio que detecta los objetos en movimiento mediante la webcam del PC y los enmarca con cuadrados verdes. Tras finalizar la grabación, mostrará una pequeña gráfica con las marcas de tiempo en las que los objetos entraron y salieron de pantalla.", tec: "Python, CV2, Pandas, Bokeh", demo: "#", codigo: "https://github.com/El-Jiro/detector-de-movimiento-python.git" },
+      { titulo: "Highcharts web app", descripcion: "Una aplicación web con el framework justpy que muestra gráficos dinámicos e interactivos creados a partir de la información de un archivo csv.", tec: "Python, Justpy, Highcharts", demo: "#", codigo: "https://github.com/El-Jiro/highcharts-web-app.git" },
+      { titulo: "Website with flask", descripcion: "Un sitio web estático muy sencillo creado con el framework de flask", tec: "Python, Flask, HTML, CSS", demo: "#", codigo: "https://github.com/El-Jiro/website-with-flask.git" },
+      { titulo: "Book Inventory GUI App", descripcion: "Una app gráfica de escritorio que funciona como un inventario de libros para una biblioteca.", tec: "Python, Tkinter, SQLite", demo: "#", codigo: "https://github.com/El-Jiro/book-inventory-gui-app.git" },
+      { titulo: "Feel-Good Mobile App", descripcion: "Una app móvil simple hecha con Kivy que muestra algunas citas de distintos autores famosos de acuerdo con tu estado de ánimo.", tec: "Python, Kivy, JSON", demo: "#", codigo: "https://github.com/El-Jiro/feel-good-mobile-app.git" }
+
     ]
   },
   javascript: {
