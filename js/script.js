@@ -26,7 +26,7 @@ const datos = {
     ]
   },
   javascript: {
-    tecnologias: ["HTML", "CSS", "React", "Node.js"],
+    tecnologias: ["HTML", "CSS", "JS Vanilla", "React", "Angular"],
     proyectos: [
       { titulo: "Lista de tareas", descripcion: "Aplicación web que guarda tus tareas en el navegador.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "#" },
       { titulo: "Panel del clima", descripcion: "Consulta una API y muestra el pronóstico de cualquier ciudad.", tec: "JavaScript, Fetch API", demo: "#", codigo: "#" }
@@ -56,6 +56,9 @@ function mostrarPagina(lang, pagina) {
   const pie = document.querySelector(`.paginacion[data-lang="${lang}"]`);
   const total = Math.max(1, Math.ceil(proyectos.length / POR_PAGINA));
   const inicio = (pagina - 1) * POR_PAGINA;
+
+  // NUEVO: la caja nunca se encoge, así la sección no cambia de altura
+  caja.style.minHeight = caja.offsetHeight + "px";
 
   caja.innerHTML = proyectos.length
     ? proyectos.slice(inicio, inicio + POR_PAGINA).map(tarjeta).join("")
