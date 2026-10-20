@@ -26,16 +26,22 @@ const datos = {
     ]
   },
   javascript: {
-    tecnologias: ["HTML", "CSS", "JS Vanilla", "React", "Angular"],
+    tecnologias: ["HTML", "CSS", "JS Vanilla", "React", "Angular", "Flex", "FLex Panel", "Fetch API"],
     proyectos: [
-      { titulo: "Lista de tareas", descripcion: "Aplicación web que guarda tus tareas en el navegador.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "#" },
-      { titulo: "Panel del clima", descripcion: "Consulta una API y muestra el pronóstico de cualquier ciudad.", tec: "JavaScript, Fetch API", demo: "#", codigo: "#" }
+      { titulo: "Drum Kit", descripcion: "Un simulador de batería el cual tocará un sonido de tambor o platillo distinto dependiendo de la tecla presionada.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/tree/main/01%20-%20JavaScript%20Drum%20Kit" },
+      { titulo: "Clock Widget", descripcion: "Un widget de reloj analógico para la web perfectamente funcional con HTML, CSS y JS Vanilla.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/02%20-%20JS%20and%20CSS%20clock/index.html" },
+      { titulo: "CSS Variables", descripcion: "Una pequeña demostración práctica de las variables CSS <b><i>spacing</i></b>, <b><i>blur</i></b> y <b><i>base</i></b> y su funcionamiento.", tec: "HTML, CSS, JavaScript, Spacing, Blur, Base", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/tree/main/03%20-%20Update%20CSS%20variables%20with%20JS" },
+      { titulo: "Flex Panel Gallery", descripcion: "Demostración de la tecnología CSS <b><i>Flex Panel</i></b> con una galería de imágenes que se expanden o se contraen al hacer clic en ellas.", tec: "HTML, CSS, JavaScript, Flex, Flex Panel", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/tree/main/03%20-%20Update%20CSS%20variables%20with%20JS" },
+      { titulo: "Population by city", descripcion: "Página web que permite buscar una determinada ciudad estadounidense a través de una API y devuelve tanto su número de habitantes como el estado en que se ubica.", tec: "HTML, CSS, JavaScript, Fetch API", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/06%20-%20Type%20Ahead/index.html" },
+      { titulo: "Fun with HTML5 Canvas", descripcion: "Aplicación web para dibujar garabatos mediante la tecnología Canvas de HTML", tec: "HTML, CSS, JavaScript, Canvas", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/08%20-%20Fun%20with%20HTML5%20Canvas/index.html" },
     ]
   }
 };
 
-// Crea las etiquetas y tarjetas de cada sección
-const POR_PAGINA = 3; // proyectos que se ven por página
+const OPCIONES = [2, 3, 4, 5, 0]; // 0 = "Todos"
+const POR_DEFECTO = parseInt(localStorage.getItem("porPagina")) || 3
+const porPagina = {};     // cuántos proyectos muestra cada sección
+const paginaActual = {};  // en qué página va cada sección
 
 function tarjeta(p) {
   return `
@@ -50,18 +56,43 @@ function tarjeta(p) {
     </article>`;
 }
 
+// Tamaño de página real (si eligió "Todos", es el total de proyectos)
+function tamano(lang) {
+  localStorage.setItem("porPagina", toString(porPagina))
+  const n = porPagina[lang];
+  return n === 0 ? Math.max(1, datos[lang].proyectos.length) : n;
+}
+function totalPaginas(lang) {
+  return Math.max(1, Math.ceil(datos[lang].proyectos.length / tamano(lang)));
+}
+
+// Mide cada página y fija la altura de la caja a la más alta
+function ajustarAltura(lang) {
+  const { proyectos } = datos[lang];
+  const n = tamano(lang);
+  const caja = document.querySelector(`.proyectos[data-lang="${lang}"]`);
+  let max = 0;
+
+  caja.style.minHeight = "";
+  for (let p = 1; p <= totalPaginas(lang); p++) {
+    caja.innerHTML = proyectos.slice((p - 1) * n, p * n).map(tarjeta).join("");
+    max = Math.max(max, caja.offsetHeight);
+  }
+  caja.style.minHeight = max + "px";
+}
+
 function mostrarPagina(lang, pagina) {
   const { proyectos } = datos[lang];
   const caja = document.querySelector(`.proyectos[data-lang="${lang}"]`);
   const pie = document.querySelector(`.paginacion[data-lang="${lang}"]`);
-  const total = Math.max(1, Math.ceil(proyectos.length / POR_PAGINA));
-  const inicio = (pagina - 1) * POR_PAGINA;
+  const n = tamano(lang);
+  const total = totalPaginas(lang);
+  const inicio = (pagina - 1) * n;
 
-  // NUEVO: la caja nunca se encoge, así la sección no cambia de altura
-  caja.style.minHeight = caja.offsetHeight + "px";
+  paginaActual[lang] = pagina;
 
   caja.innerHTML = proyectos.length
-    ? proyectos.slice(inicio, inicio + POR_PAGINA).map(tarjeta).join("")
+    ? proyectos.slice(inicio, inicio + n).map(tarjeta).join("")
     : `<p class="vacio">Pronto agregaré proyectos aquí.</p>`;
 
   // Si solo hay una página, no se muestran botones
@@ -76,28 +107,60 @@ function mostrarPagina(lang, pagina) {
 }
 
 for (const lang in datos) {
+  porPagina[lang] = POR_DEFECTO;
+
   // Etiquetas de tecnologías
   document.querySelector(`.etiquetas[data-lang="${lang}"]`).innerHTML =
     datos[lang].tecnologias.map(t => `<li>${t}</li>`).join("");
 
-  // Crea el contenedor de botones debajo de la lista de proyectos
+  // Estructura: [caja de proyectos] + [fila inferior: botones | selector]
   const caja = document.querySelector(`.proyectos[data-lang="${lang}"]`);
+  const envoltura = document.createElement("div");
+  const inferior = document.createElement("div");
+  inferior.className = "inferior";
+
   const pie = document.createElement("div");
   pie.className = "paginacion";
   pie.dataset.lang = lang;
-  const envoltura = document.createElement("div");
-  caja.replaceWith(envoltura);
-  envoltura.append(caja, pie);
 
-  // Un solo listener por sección
+  const etiqueta = document.createElement("label");
+  etiqueta.className = "selector";
+  etiqueta.innerHTML = `Mostrar
+    <select>
+      ${OPCIONES.map(o =>
+    `<option value="${o}" ${o === POR_DEFECTO ? "selected" : ""}>${o === 0 ? "Todos" : o}</option>`
+  ).join("")}
+    </select> por página`;
+  const select = etiqueta.querySelector("select");
+
+  caja.replaceWith(envoltura);
+  inferior.append(pie, etiqueta);
+  envoltura.append(caja, inferior);
+
+  // Botones de página
   pie.addEventListener("click", e => {
     const b = e.target.closest("button");
     if (b && !b.disabled) mostrarPagina(lang, Number(b.dataset.pagina));
   });
 
+  // Cambio de cantidad por página
+  select.addEventListener("change", () => {
+    const antes = select.getBoundingClientRect().top;
+
+    porPagina[lang] = Number(select.value);
+    ajustarAltura(lang);
+    mostrarPagina(lang, 1);
+
+    // Mantiene el selector en el mismo lugar de la pantalla
+    const despues = select.getBoundingClientRect().top;
+    window.scrollBy({ top: despues - antes, behavior: "instant" });
+  });
+
+  ajustarAltura(lang);
   mostrarPagina(lang, 1);
 }
-// Modo claro / oscuro
+
+// ===== Modo claro / oscuro =====
 const raiz = document.documentElement;
 const boton = document.getElementById("tema");
 const sistemaOscuro = window.matchMedia("(prefers-color-scheme: dark)");
@@ -116,7 +179,7 @@ boton.addEventListener("click", () => {
 });
 pintarBoton();
 
-// Marca en el menú la sección que estás viendo
+// ===== Marca en el menú la sección que estás viendo =====
 const enlaces = document.querySelectorAll("#menu a");
 const observador = new IntersectionObserver(entradas => {
   entradas.forEach(e => {
@@ -126,3 +189,17 @@ const observador = new IntersectionObserver(entradas => {
   });
 }, { rootMargin: "-40% 0px -55% 0px" });
 document.querySelectorAll("section.lenguaje, footer").forEach(s => observador.observe(s));
+
+// ===== Recalcular alturas al cambiar el tamaño de la ventana =====
+function recalcular() {
+  for (const lang in datos) {
+    ajustarAltura(lang);
+    mostrarPagina(lang, paginaActual[lang] || 1);
+  }
+}
+let temporizador;
+window.addEventListener("resize", () => {
+  clearTimeout(temporizador);
+  temporizador = setTimeout(recalcular, 150);
+});
+window.addEventListener("load", recalcular);
