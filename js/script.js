@@ -39,9 +39,25 @@ const datos = {
 };
 
 const OPCIONES = [2, 3, 4, 5, 0]; // 0 = "Todos"
-const POR_DEFECTO = parseInt(localStorage.getItem("porPagina")) || 3
+const POR_DEFECTO = 3
 const porPagina = {};     // cuántos proyectos muestra cada sección
 const paginaActual = {};  // en qué página va cada sección
+
+
+// ===== Guardado de la preferencia =====
+function leerGuardado() {
+
+  try {
+    return JSON.parse(localStorage.getItem("porPagina")) || {};
+  } catch (e) {
+    return {}; // sin acceso a localStorage o dato dañado
+  }
+}
+function guardarPreferencia() {
+
+  try { localStorage.setItem("porPagina", JSON.stringify(porPagina)); } catch (e) { }
+}
+const guardado = leerGuardado();
 
 function tarjeta(p) {
   return `
@@ -58,7 +74,6 @@ function tarjeta(p) {
 
 // Tamaño de página real (si eligió "Todos", es el total de proyectos)
 function tamano(lang) {
-  localStorage.setItem("porPagina", toString(porPagina))
   const n = porPagina[lang];
   return n === 0 ? Math.max(1, datos[lang].proyectos.length) : n;
 }
@@ -107,7 +122,8 @@ function mostrarPagina(lang, pagina) {
 }
 
 for (const lang in datos) {
-  porPagina[lang] = POR_DEFECTO;
+  // Usa lo guardado solo si es una opción válida; si no, el valor por defecto
+  porPagina[lang] = OPCIONES.includes(guardado[lang]) ? guardado[lang] : POR_DEFECTO;
 
   // Etiquetas de tecnologías
   document.querySelector(`.etiquetas[data-lang="${lang}"]`).innerHTML =
@@ -128,7 +144,8 @@ for (const lang in datos) {
   etiqueta.innerHTML = `Mostrar
     <select>
       ${OPCIONES.map(o =>
-    `<option value="${o}" ${o === POR_DEFECTO ? "selected" : ""}>${o === 0 ? "Todos" : o}</option>`
+    `<option value="${o}" ${o === porPagina[lang] ? "selected" : ""}>${o === 0 ? "Todos" : o}</option>`
+  ).join("")}
   ).join("")}
     </select> por página`;
   const select = etiqueta.querySelector("select");
@@ -148,6 +165,7 @@ for (const lang in datos) {
     const antes = select.getBoundingClientRect().top;
 
     porPagina[lang] = Number(select.value);
+    guardarPreferencia()
     ajustarAltura(lang);
     mostrarPagina(lang, 1);
 
