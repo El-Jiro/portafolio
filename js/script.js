@@ -26,14 +26,18 @@ const datos = {
     ]
   },
   javascript: {
-    tecnologias: ["HTML", "CSS", "JS Vanilla", "React", "Angular", "Flex", "FLex Panel", "Fetch API"],
+    tecnologias: ["HTML", "CSS", "JS Vanilla", "React", "Angular", "Flex", "Flex Panel", "Fetch API"],
     proyectos: [
       { titulo: "Drum Kit", descripcion: "Un simulador de batería el cual tocará un sonido de tambor o platillo distinto dependiendo de la tecla presionada.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/tree/main/01%20-%20JavaScript%20Drum%20Kit" },
       { titulo: "Clock Widget", descripcion: "Un widget de reloj analógico para la web perfectamente funcional con HTML, CSS y JS Vanilla.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/02%20-%20JS%20and%20CSS%20clock/index.html" },
       { titulo: "CSS Variables", descripcion: "Una pequeña demostración práctica de las variables CSS <b><i>spacing</i></b>, <b><i>blur</i></b> y <b><i>base</i></b> y su funcionamiento.", tec: "HTML, CSS, JavaScript, Spacing, Blur, Base", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/tree/main/03%20-%20Update%20CSS%20variables%20with%20JS" },
       { titulo: "Flex Panel Gallery", descripcion: "Demostración de la tecnología CSS <b><i>Flex Panel</i></b> con una galería de imágenes que se expanden o se contraen al hacer clic en ellas.", tec: "HTML, CSS, JavaScript, Flex, Flex Panel", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/tree/main/03%20-%20Update%20CSS%20variables%20with%20JS" },
       { titulo: "Population by city", descripcion: "Página web que permite buscar una determinada ciudad estadounidense a través de una API y devuelve tanto su número de habitantes como el estado en que se ubica.", tec: "HTML, CSS, JavaScript, Fetch API", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/06%20-%20Type%20Ahead/index.html" },
-      { titulo: "Fun with HTML5 Canvas", descripcion: "Aplicación web para dibujar garabatos mediante la tecnología Canvas de HTML", tec: "HTML, CSS, JavaScript, Canvas", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/08%20-%20Fun%20with%20HTML5%20Canvas/index.html" },
+      { titulo: "Fun with HTML5 Canvas", descripcion: "Aplicación web para dibujar garabatos mediante la tecnología Canvas de HTML.", tec: "HTML, CSS, JavaScript, Canvas", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/08%20-%20Fun%20with%20HTML5%20Canvas/index.html" },
+      { titulo: "Hold Shift and check checkboxes", descripcion: "Pequeña demostración de cómo marcar mútiples checkboxes de una sola vez manteniendo la tecla Shift.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/tree/main/10%20-%20Hold%20Shift%20And%20Check%20Checkboxes" },
+      { titulo: "Custom Video Player", descripcion: "Reproductor de vídeo personalizado para la web hecho desde cero con HTML, CSS y JS Vanilla", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/11%20-%20Custom%20Video%20Player/scripts.js" },
+      { titulo: "Key Secuence Detection", descripcion: "Página web que detecta cuando el usuario presiona una secuencia de 6 teclas y, cada vez que introduzca la combinación correcta, pintará un gif de unicornio o arcoiris en un lugar aleatorio de la pantalla. También mostrará un contador que indica cuántas veces se ha introducido dicha combinación.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/12%20-%20Key%20Secuence%20Detection/index.html" },
+      { titulo: "Slide in On Scroll", descripcion: "Un simulador de artículo web donde las imágenes se irán deslizando desde las orillas hasta su posición final conforme nos desplacemos hacia abajo para leer el texto y se volverán a ocultar en cuanto las pasemos de largo.", tec: "HTML, CSS, JavaScript", demo: "#", codigo: "https://github.com/El-Jiro/JavaScript30/blob/main/12%20-%20Key%20Secuence%20Detection/index.html" },
     ]
   }
 };
