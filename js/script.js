@@ -57,6 +57,20 @@ function leerGuardado() {
     return {}; // sin acceso a localStorage o dato dañado
   }
 }
+
+function leerPaginas() {
+  try {
+    return JSON.parse(localStorage.getItem("paginaActual")) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function guardarPaginas() {
+  try { localStorage.setItem("paginaActual", JSON.stringify(paginaActual)); } catch (e) { }
+}
+
+const paginasGuardadas = leerPaginas();
 function guardarPreferencia() {
 
   try { localStorage.setItem("porPagina", JSON.stringify(porPagina)); } catch (e) { }
@@ -109,6 +123,7 @@ function mostrarPagina(lang, pagina) {
   const inicio = (pagina - 1) * n;
 
   paginaActual[lang] = pagina;
+  guardarPaginas();
 
   caja.innerHTML = proyectos.length
     ? proyectos.slice(inicio, inicio + n).map(tarjeta).join("")
@@ -179,7 +194,12 @@ for (const lang in datos) {
   });
 
   ajustarAltura(lang);
-  mostrarPagina(lang, 1);
+
+  // Página guardada, corregida si ya no existe (por ejemplo, si quitaste proyectos
+  // o elegiste mostrar más por página)
+  const guardadaPag = Number(paginasGuardadas[lang]) || 1;
+  const inicial = Math.min(Math.max(1, guardadaPag), totalPaginas(lang));
+  mostrarPagina(lang, inicial);
 }
 
 // ===== Modo claro / oscuro =====
